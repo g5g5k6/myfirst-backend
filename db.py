@@ -1,13 +1,15 @@
 import psycopg2
 from datetime import datetime, timedelta
+import os
+from dotenv import load_dotenv
 
 # PostgreSQL 資料庫連接
 DB_CONFIG = {
-    "dbname": "vocab",  
-    "user": "postgres",  
-    "password": "12345",  
-    "host": "localhost",  
-    "port": 5432  
+    "dbname": os.getenv("DB_dbname"),  
+    "user": os.getenv("DB_user"),  
+    "password": os.getenv("DB_password"),  
+    "host": os.getenv("DB_host"),  
+    "port": os.getenv("DB_port") 
 }
 
 def get_connection():
@@ -37,7 +39,7 @@ def get_due_groups():
     #select group
     cursor.execute("SELECT id, next_review_at, stage FROM word_groups WHERE next_review_at <= %s AND stage != 4", (now,))
     groups = cursor.fetchall()
-    
+    print(groups)
     result = []
     #[(id,next_time,stage)]
     for group_id, next_review_at, stage in groups:

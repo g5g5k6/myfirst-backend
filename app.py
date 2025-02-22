@@ -23,6 +23,7 @@ CORS(app)
 def due_groups():
     print("嘗試get單字")
     groups = get_due_groups()
+    print("groups內容:", groups)
     return jsonify(groups)
 
 @app.route("/review/<int:group_id>", methods=["POST"])

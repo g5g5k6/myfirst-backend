@@ -1,13 +1,13 @@
 import psycopg2
+import os
 
 DB_CONFIG = {
-    "dbname": "vocab",  # 資料庫名稱
-    "user": "postgres",  # 用戶名稱
-    "password": "12345",  # 密碼
-    "host": "localhost",  # 資料庫主機
-    "port": 5432  # PostgreSQL 端口
+    "dbname": os.getenv("DB_dbname"),  
+    "user": os.getenv("DB_user"),  
+    "password": os.getenv("DB_password"),  
+    "host": os.getenv("DB_host"),  
+    "port": os.getenv("DB_port") 
 }
-
 def create_db():
     """建立資料庫並創建 word_groups 表格"""
     print("連接...")
