@@ -3,10 +3,10 @@ from flask_cors import CORS
 from flask import Flask, request, jsonify
 import json
 import os
-from db import add_word_group, get_due_groups, review_word_group,check_review,create_word_group()
+from db import  get_due_groups, review_word_group,check_review,create_word_group
 
 app = Flask(__name__)
-
+CORS(app)
 # @app.route("/add_group", methods=["POST"])
 # def add_group():
     # data = request.json
@@ -19,14 +19,14 @@ app = Flask(__name__)
     # return jsonify({"message": "單字組已新增"})
 
 @app.route("/due_groups", methods=["GET"])
-#自動載入
+#開始自動載入
 def due_groups():
     print("嘗試get單字")
     groups = get_due_groups()
     return jsonify(groups)
 
 @app.route("/review/<int:group_id>", methods=["POST"])
-#手動按鈕
+#手動按鈕 完畢按鈕
 def review(group_id):
     result = review_word_group(group_id)
     return jsonify({"message": result})
@@ -36,7 +36,7 @@ def review(group_id):
 def check():
     check_review()
     return jsonify({"message": "Success"})
-
+#手動創建 單字群
 @app.route("/create_word_group", methods=["POST"])
 def create_group():
     result = create_word_group()
